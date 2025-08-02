@@ -114,6 +114,9 @@ func (m *cache) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			if m.cfg.ForceNoCacheHeader {
 				w.Header().Set("Cache-Control", "no-cache")
 			}
+			if data.Status == 0 {
+				data.Status = 200
+			}
 			w.WriteHeader(data.Status)
 			_, _ = w.Write(data.Body)
 
